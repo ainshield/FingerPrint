@@ -10,4 +10,3 @@ RUN composer update && \
     composer update && \
     composer install && \
     apt update && apt install -y net-tools
-

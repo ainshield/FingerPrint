@@ -160,7 +160,7 @@ function beginEnrollment() {
 
 function beginIdentification() {
   setReaderSelectField("verifyReaderSelect");
-  myReader.setStatusField("verifyIdentityStatusField");
+  // myReader.setStatusField("verifyIdentityStatusField");
 }
 
 function setReaderSelectField(fieldName) {
@@ -227,7 +227,7 @@ function clearCapture() {
   clearInputs();
   clearPrints();
   clearHand();
-  myReader.reader.stopCapture();
+  // myReader.reader.stopCapture();
   document.getElementById("userDetails").innerHTML = "";
 }
 
@@ -315,7 +315,7 @@ function getNextNotEnrolledID() {
   let middleFingers = document.getElementById("middleFingers");
   let verifyFingers = document.getElementById("verificationFingers");
 
-  let enrollUserId = document.getElementById("userID").value;
+  // let enrollUserId = document.getElementById("userID").value;
   let verifyUserId = document.getElementById("userIDVerify").value;
 
   let indexFingerElement = findElementNotEnrolled(indexFingers);
@@ -357,9 +357,9 @@ function findElementNotEnrolled(element) {
 }
 
 function storeUserID() {
-  let enrollUserId = document.getElementById("userID").value;
+  // let enrollUserId = document.getElementById("userID").value;
   let identifyUserId = document.getElementById("userIDVerify").value;
-  myReader.currentHand.id = enrollUserId !== "" ? enrollUserId : identifyUserId;
+  myReader.currentHand.id = identifyUserId;
 }
 
 function storeSample(sample) {
@@ -418,7 +418,7 @@ function serverIdentify() {
   }
 
   let data = myReader.currentHand.generateFullHand();
-  let detailElement = document.getElementById("userDetails");
+  // let detailElement = document.getElementById("userDetails");
   let successMessage = "Identification Successful!";
   let failedMessage = "Identification Failed!. Try again";
   let payload = `data=${data}`;
@@ -426,25 +426,39 @@ function serverIdentify() {
   let xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status === 200) {
-      if (this.responseText !== null && this.responseText !== "") {
-        let response = JSON.parse(this.responseText);
-        if (response !== "failed" && response !== null) {
-          showMessage(successMessage, "success");
-          detailElement.innerHTML = `<div class="col text-center">
-                                <label for="fullname" class="my-text7 my-pri-color">Fullname</label>
-                                <input type="text" id="fullname" class="form-control" value="${response[0].fullname}">
-                            </div>
-                            <div class="col text-center">
-                                <label for="email" class="my-text7 my-pri-color">Email</label>
-                                <input type="text" id="email" class="form-control" value="${response[0].username}">
-                            </div>`;
+    if (this.readyState === 4) {
+      if (this.status === 200) {
+        if (this.responseText !== null && this.responseText.trim() !== "") {
+          if (this.responseText.trim().startsWith("<")) {
+            console.error("Server error:", this.responseText);
+            showMessage("An error occurred on the server. Please try again later.");
+          } else {
+            try {
+              let response = JSON.parse(this.responseText);
+              if (response !== "failed" && response !== null) {
+                showMessage(successMessage, "success");
+                console.log(this.responseText);
+                // Update UI with response data
+              } else {
+                showMessage(failedMessage);
+              }
+            } catch (error) {
+              console.error("Error parsing JSON:", error);
+              showMessage("An error occurred while processing the response.");
+            }
+          }
         } else {
-          showMessage(failedMessage);
+          console.error("Empty response received.");
+          showMessage("Empty response received.");
         }
+      } else {
+        console.error("Request failed with status:", this.status);
+        showMessage("Request failed. Please try again later.");
       }
     }
   };
+  
+  
 
   xhttp.open("POST", "src/core/verify.php", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

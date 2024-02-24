@@ -149,13 +149,14 @@
                                 <label for="verifyReaderSelect" class="my-text7 my-pri-color">Choose Fingerprint Reader</label>
                                 <select name="readerSelect" id="verifyReaderSelect" class="form-control" onclick="beginIdentification()">
                                     <option selected>Select Fingerprint Reader</option>
-                                </select>
+                                </select> 
+                                
                             </div>
                         </div>
                         <div class="form-row mt-4">
                             <div class="col mb-md-0 text-center">
                                 <label for="userIDVerify" class="my-text7 my-pri-color m-0">Specify UserID</label>
-                                <input type="text" id="userIDVerify" class="form-control mt-1" required>
+                                <input value="1" type="text" id="userIDVerify" class="form-control mt-1" required>
                             </div>
                         </div>
                         <div class="form-row mt-3">
@@ -173,7 +174,7 @@
                         </div>
                         <div class="form-row m-3 mt-md-5 justify-content-center">
                             <div class="col-4">
-                                <button class="btn btn-primary btn-block my-sec-bg my-text-button py-1" type="submit" onclick="captureForIdentify()">Start Capture</button>
+                                <button id="startCaptureButton" class="btn btn-primary btn-block my-sec-bg my-text-button py-1" type="submit" onclick="captureForIdentify()">Start Capture</button>
                             </div>
                             <div class="col-4">
                                 <button class="btn btn-primary btn-block my-sec-bg my-text-button py-1" type="submit" onclick="serverIdentify()">Identify</button>
@@ -197,3 +198,34 @@
 </section>
 
 </html>
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#verifyIdentity').on('shown.bs.modal', function() {
+            var startCaptureButton = document.getElementById('startCaptureButton');
+            if (startCaptureButton) {
+                startCaptureButton.click();
+            }
+        });
+    });
+</script> -->
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("DOMContentLoaded event fired");
+        $('#verifyIdentity').on('shown.bs.modal', function() {
+            console.log("Verify Identity modal shown");
+            var startCaptureButton = document.getElementById('startCaptureButton');
+            if (startCaptureButton) {
+                console.log("startCaptureButton found");
+                startCaptureButton.click();
+                console.log("startCaptureButton clicked");
+            } else {
+                console.log("startCaptureButton not found");
+            }
+        });
+    });
+
+    function captureForIdentify() {
+    console.log("captureForIdentify() function called");
+    // Add more debug statements or logic here
+    }
+</script> -->

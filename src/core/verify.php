@@ -31,6 +31,9 @@ if(!empty($_POST["data"])) {
     if($response === "match"){
         echo getUserDetails($user_id);
     }
+    elseif($response === NULL){
+        echo json_encode("error: no match found");
+    }
     else{
         echo json_encode("failed");
     }

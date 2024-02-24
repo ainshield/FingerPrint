@@ -35,7 +35,7 @@ function getUserFmds($user_id){
 
 function getUserDetails($user_id){
     $myDatabase = new Database();
-    $sql_query = "select username, fullname from users where id=?";
+    $sql_query = "select email, password from users where id=?";
     $param_type = "i";
     $param_array = [$user_id];
     $user_info = $myDatabase->select($sql_query, $param_type, $param_array);

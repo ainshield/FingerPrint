@@ -422,6 +422,7 @@ function serverIdentify() {
   let successMessage = "Identification Successful!";
   let failedMessage = "Identification Failed!. Try again";
   let payload = `data=${data}`;
+  // console.log(data);
 
   let xhttp = new XMLHttpRequest();
 
@@ -431,13 +432,19 @@ function serverIdentify() {
         if (this.responseText !== null && this.responseText.trim() !== "") {
           if (this.responseText.trim().startsWith("<")) {
             console.error("Server error:", this.responseText);
-            showMessage("An error occurred on the server. Please try again later.");
+            // alert("");
+            if(confirm("Invalid input. Please try again.")) {
+              window.location.reload();
+             }
           } else {
             try {
               let response = JSON.parse(this.responseText);
               if (response !== "failed" && response !== null) {
                 showMessage(successMessage, "success");
-                console.log(this.responseText);
+                localStorage.setItem("credentials", JSON.stringify(response));
+                window.location.href = 'http://localhost:5173/';
+                // console.log(localStorage.getItem("credentials"));
+                // console.log(response);
                 // Update UI with response data
               } else {
                 showMessage(failedMessage);
@@ -464,4 +471,18 @@ function serverIdentify() {
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(payload);
 }
+
+// function validateForm() {
+//   // var userID = document.getElementById("userIDVerify").value;
+
+//   // Check if UserID and Fingerprint Reader are selected
+//   if (data === null ) {
+//       // Disable login button
+//       // document.getElementById("loginButton").disabled = false; // Enable login button
+//       console.log('no data');
+//   } else {
+//       // document.getElementById("loginButton").disabled = true; // Disable login button
+//       console.log('with data');
+//   }
+// }
 

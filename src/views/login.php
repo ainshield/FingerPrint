@@ -16,6 +16,9 @@
             captureForIdentify();
         }, 1000); // Adjust the delay time as needed
     }
+    
+
+
 </script>
 
 <body onload="beginIdentification()">
@@ -37,26 +40,25 @@
                             <div id="verifyIdentityStatusField" class="text-center">
                                 <!--verifyIdentity Status will be displayed Here-->
                             </div>
-                            <div class="form-row mt-3">
+                            <div class="form-row mt-3 invisible">
                                 <div class="col mb-3 mb-md-0 text-center">
                                     <label for="verifyReaderSelect">Choose Fingerprint
                                         Reader</label>
-                                    <select name="readerSelect" id="verifyReaderSelect" class="form-control"
-                                        onchange="beginIdentification()">
+                                    <select name="readerSelect" id="verifyReaderSelect" class="form-control" 
+                                        >
                                         <option selected>Select Fingerprint Reader</option>
                                     </select>
 
                                 </div>
                             </div>
                             <div class="form-row mt-4">
-                                <div class="col mb-md-0 text-center">
-                                    <label for="userIDVerify" >Specify UserID</label>
-                                    <input onchange="captureForIdentify()" type="text" id="userIDVerify" class="form-control mt-1" required>
+                                <div class="col mb-md-0">
+                                    <input placeholder="Enter User ID" onchange="captureForIdentify()" type="text" id="userIDVerify" class="form-control mt-1" required>
                                 </div>
                             </div>
                             <div class="form-row mt-3">
                                 <div class="col text-center">
-                                    <label>Capture Verification Finger</label>
+                                    <p>Capture Verification Finger</p>
                                 </div>
                             </div>
                             <div id="verificationFingers" class="form-row justify-content-center">
@@ -76,7 +78,7 @@
 
                                     <!-- <button variant="primary" 
                                         type="submit" onclick="serverIdentify()">Login</button> -->
-                                        <button type="button" class="btn btn-primary" onclick="serverIdentify()">Login</button>
+                                        <button id="loginButton" type="button" class="btn btn-primary" onclick="serverIdentify()">Login</button>
 
 
                                     <!-- <button
@@ -94,5 +96,8 @@
         </div>
     </div>
 </body>
+<!-- <script>
+    window.onload(validateForm())
+</script> -->
 
 </html>

@@ -34,6 +34,9 @@ if(!empty($_POST["data"])) {
     elseif($response === NULL){
         echo json_encode("error: no match found");
     }
+    elseif($response === ""){
+        echo json_encode("error: no match found");
+    }
     else{
         echo json_encode("failed");
     }

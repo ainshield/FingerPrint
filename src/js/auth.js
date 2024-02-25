@@ -441,7 +441,17 @@ function serverIdentify() {
               let response = JSON.parse(this.responseText);
               if (response !== "failed" && response !== null) {
                 showMessage(successMessage, "success");
-                localStorage.setItem("credentials", JSON.stringify(response));
+                let credentials = response[0];
+                localStorage.setItem("credentials", JSON.stringify(credentials));
+                
+                // fetch("http://localhost/fingerprint/credentials", {
+                //   method: "POST",
+                //   headers: {
+                //     "Content-Type": "application/json",
+                //   },
+                //   body: JSON.stringify(credentials),
+                // })
+
                 window.location.href = 'http://localhost:5173/';
                 // console.log(localStorage.getItem("credentials"));
                 // console.log(response);

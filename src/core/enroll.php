@@ -28,6 +28,7 @@ if(!empty($_POST["data"])){
     // avoid duplicate enrollment of the same finger, also you might have to improve it
     // a bit to make it more robust, considering this is just a proof of concept and we
     // are only checking a single finger
+    
     if (isDuplicate($index_finger_string_array[0]) || isDuplicate($middle_finger_string_array[0])) {
         echo "Duplicate not allowed!";
     }

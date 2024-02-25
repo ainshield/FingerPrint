@@ -44,8 +44,12 @@ $router->route('login', function() {
     require("./src/views/login.php");
 });
 
-$router->route('enroll', function() {
-    require("./src/views/enroll.php");
+$router->route('register', function() {
+    require("./src/views/register.php");
+});
+
+$router->route('embed', function() {
+    require("./src/views/embed.php");
 });
 
 // Add more routes as needed...

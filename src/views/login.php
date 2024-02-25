@@ -10,17 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<script>
-    function startCaptureAfterDelay() {
-        setTimeout(function () {
-            captureForIdentify();
-        }, 1000); // Adjust the delay time as needed
-    }
-    
-
-
-</script>
-
 <body onload="beginIdentification()">
     <script src="src/js/jquery-3.5.0.min.js"></script>
     <script src="src/js/es6-shim.js"></script>
@@ -96,6 +85,7 @@
         </div>
     </div>
 </body>
+
 <!-- <script>
     window.onload(validateForm())
 </script> -->

@@ -48,8 +48,12 @@ $router->route('register', function() {
     require("./src/views/register.php");
 });
 
-$router->route('embed', function() {
-    require("./src/views/embed.php");
+$router->route('throwcred', function() {
+    require("./src/views/throwcred.php");
+});
+
+$router->route('logout', function() {
+    require("./src/views/logout.php");
 });
 
 // Add more routes as needed...

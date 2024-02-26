@@ -419,8 +419,8 @@ function serverIdentify() {
 
   let data = myReader.currentHand.generateFullHand();
   // let detailElement = document.getElementById("userDetails");
-  let successMessage = "Identification Successful!";
-  let failedMessage = "Identification Failed!. Try again";
+  let successMessage = "Identification Successful! Redirecting back to login page.";
+  let failedMessage = "Identification Failed. Error: ";
   let payload = `data=${data}`;
   // console.log(data);
 
@@ -433,16 +433,17 @@ function serverIdentify() {
           if (this.responseText.trim().startsWith("<")) {
             console.error("Server error:", this.responseText);
             // alert("");
-            if(confirm("Invalid input. Please try again.")) {
+            if(alert("Invalid input. Please try again.")) {
               window.location.reload();
              }
           } else {
             try {
               let response = JSON.parse(this.responseText);
               if (response !== "failed" && response !== null) {
-                showMessage(successMessage, "success");
+                alert(successMessage, "success");
                 let credentials = response[0];
                 localStorage.setItem("credentials", JSON.stringify(credentials));
+                // console.log(credentials);
                 
                 // fetch("http://localhost/fingerprint/credentials", {
                 //   method: "POST",

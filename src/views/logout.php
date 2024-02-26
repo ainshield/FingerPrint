@@ -10,9 +10,7 @@
 <body>
     <script>
         // Inside the iframe
-        const credentials = localStorage.getItem("credentials");
-        window.parent.postMessage({ type: "localStorageChange", credentials: credentials }, "*");
-
+        localStorage.removeItem("credentials");
     </script>
 </body>
 

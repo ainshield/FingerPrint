@@ -31,6 +31,8 @@ if(!empty($_POST["data"])){
     
     if (isDuplicate($index_finger_string_array[0]) || isDuplicate($middle_finger_string_array[0])) {
         echo "Duplicate not allowed!";
+    } elseif ($index_finger_string_array[0] === null || $middle_finger_string_array[0] === null) {
+        echo "Finger not detected!";
     }
     else{
         $json_response = enroll_fingerprint($pre_reg_fmd_array);

@@ -155,7 +155,7 @@ let myReader = new Reader();
 
 function beginEnrollment() {
   setReaderSelectField("enrollReaderSelect");
-  myReader.setStatusField("enrollmentStatusField");
+  // myReader.setStatusField("enrollmentStatusField");
 }
 
 function beginIdentification() {
@@ -313,14 +313,14 @@ function showNextNotEnrolledItem() {
 function getNextNotEnrolledID() {
   let indexFingers = document.getElementById("indexFingers");
   let middleFingers = document.getElementById("middleFingers");
-  let verifyFingers = document.getElementById("verificationFingers");
+  // let verifyFingers = document.getElementById("verificationFingers");
 
   let enrollUserId = document.getElementById("userID").value;
-  let verifyUserId = document.getElementById("userIDVerify").value;
+  // let verifyUserId = document.getElementById("userIDVerify").value;
 
   let indexFingerElement = findElementNotEnrolled(indexFingers);
   let middleFingerElement = findElementNotEnrolled(middleFingers);
-  let verifyFingerElement = findElementNotEnrolled(verifyFingers);
+  // let verifyFingerElement = findElementNotEnrolled(verifyFingers);
 
   //assumption is that we will always start with
   //indexfinger and run down to middlefinger
@@ -332,9 +332,9 @@ function getNextNotEnrolledID() {
     return middleFingerElement.id;
   }
 
-  if (verifyFingerElement !== null && verifyUserId !== "") {
-    return verifyFingerElement.id;
-  }
+  // if (verifyFingerElement !== null && verifyUserId !== "") {
+  //   return verifyFingerElement.id;
+  // }
 
   return "";
 }
@@ -358,8 +358,8 @@ function findElementNotEnrolled(element) {
 
 function storeUserID() {
   let enrollUserId = document.getElementById("userID").value;
-  let identifyUserId = document.getElementById("userIDVerify").value;
-  myReader.currentHand.id = enrollUserId !== "" ? enrollUserId : identifyUserId;
+  // let identifyUserId = document.getElementById("userIDVerify").value;
+  myReader.currentHand.id = enrollUserId;
 }
 
 function storeSample(sample) {
@@ -391,8 +391,9 @@ function serverEnroll() {
   }
 
   let data = myReader.currentHand.generateFullHand();
-  let successMessage = "Enrollment Successful!";
-  let failedMessage = "Enrollment Failed!";
+  
+  let successMessage = "Enrollment Successful! You may now close this tab.";
+  let failedMessage = "Enrollment Failed. Error: ";
   let payload = `data=${data}`;
 
   let xhttp = new XMLHttpRequest();
@@ -400,9 +401,11 @@ function serverEnroll() {
   xhttp.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
       if (this.responseText === "success") {
-        showMessage(successMessage, "success");
+        alert(successMessage, "success");
+        window.close();
       } else {
-        showMessage(`${failedMessage} ${this.responseText}`);
+        alert(`${failedMessage} ${this.responseText}`);
+        location.reload();
       }
     }
   };
@@ -422,6 +425,7 @@ function serverIdentify() {
   let successMessage = "Identification Successful!";
   let failedMessage = "Identification Failed!. Try again";
   let payload = `data=${data}`;
+  console.log(data);
 
   let xhttp = new XMLHttpRequest();
 
@@ -440,7 +444,8 @@ function serverIdentify() {
                                 <input type="text" id="email" class="form-control" value="${response[0].username}">
                             </div>`;
         } else {
-          showMessage(failedMessage);
+          alert(failedMessage);
+          location.reload();
         }
       }
     }
